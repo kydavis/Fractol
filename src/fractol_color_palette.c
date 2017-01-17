@@ -6,7 +6,7 @@
 /*   By: kdavis <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/13 19:56:09 by kdavis            #+#    #+#             */
-/*   Updated: 2017/01/16 13:08:09 by kdavis           ###   ########.fr       */
+/*   Updated: 2017/01/17 11:38:56 by kdavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	frac_lpalette_loader(t_palette *pal, int start, int size)
 	int	j;
 	int	k;
 
-	duplicates = 512 / (size * 64); 
+	duplicates = 256 / (size * 64); 
 	i = start - 1;
 	size += start;
 	offset = 0;

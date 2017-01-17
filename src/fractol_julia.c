@@ -1,26 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf_pixel.c                                        :+:      :+:    :+:   */
+/*   fractol_julia.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kdavis <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/19 10:34:38 by kdavis            #+#    #+#             */
-/*   Updated: 2017/01/16 16:58:54 by kdavis           ###   ########.fr       */
+/*   Created: 2017/01/16 16:37:35 by kdavis            #+#    #+#             */
+/*   Updated: 2017/01/17 14:52:18 by kdavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 #include <fractol.h>
-#include <mlx.h>
 
-int	pixel_to_img(t_mlx *c, t_pix *p)
+int	frac_julia(t_mlx *c, t_pix *p, t_complex *cp, int mode)
 {
-	int	*pix;
+	t_complex	z;
+	t_complex	zs;
+	int			max;
+	int			i;
 
-	if (p->x >= c->win.max_x || p->y >= c->win.max_y || p->x < 0 || p->y < 0)
-		return (0);
-	pix = (int *)(c->img.skt + (c->img.bpp / 8 * p->x) + (c->img.sl * p->y));
-	*pix = p->color;
-	return (1);
+	frac_scale_c(c, &z, p->x, p->y);
+	zs.r = z.r * z.r;
+	zs.i = z.i * z.i;
+	i = 0;
+	max = ((mode == 1) ? 64 : 64);
+	while (zs.r + zs.i < 4 && i < max)
+	{
+		z.i = z.r * z.i;
+		z.i += z.i;
+		z.i += cp->i;
+		z.r = zs.r - zs.i + cp->r;
+		zs.r = z.r * z.r;
+		zs.i = z.i * z.i;
+		i++;
+	}
+	return (i == max ? 256 : i);
 }
