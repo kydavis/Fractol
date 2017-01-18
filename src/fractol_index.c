@@ -6,7 +6,7 @@
 /*   By: kdavis <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/13 14:39:07 by kdavis            #+#    #+#             */
-/*   Updated: 2017/01/18 13:30:10 by kdavis           ###   ########.fr       */
+/*   Updated: 2017/01/18 15:17:49 by kdavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ static int	frac_dispatcher(t_mlx *c, t_pix *p, t_complex *cp)
 		return (frac_julia(c, p, cp)); 
 /*	else if (c->frc.id == 2)
 		frac_mandelbrot(c); */
-	else if (c->frc.id == 3)
-		return (test_fractol(c, cp));
+/*	else if (c->frc.id == 3)
+		return (test_fractol(c, cp));*/
 	return (0);
 }
 

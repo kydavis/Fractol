@@ -6,7 +6,7 @@
 /*   By: kdavis <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 16:45:15 by kdavis            #+#    #+#             */
-/*   Updated: 2017/01/18 13:35:09 by kdavis           ###   ########.fr       */
+/*   Updated: 2017/01/18 15:21:44 by kdavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,9 @@ int	fractol_khooks(int kc, void *param)
 	if (kc == N1 || kc == N2 || kc == N3 || kc == N4 || kc == N5)
 		frac_lpalette_loader(&canvas->palette, kc - N1, 4);
 	if (kc == UA || kc == DA)
-		canvas->img.ctr.i += (kc == DA ? canvas->frc.zoom : -canvas->frc.zoom) / 100;
+		canvas->img.ctr.i += (kc == DA ? canvas->frc.zoom : -canvas->frc.zoom) / 10;
 	if (kc == LA || kc == RA)
-		canvas->img.ctr.r += (kc == RA ? canvas->frc.zoom : -canvas->frc.zoom) / 100;
+		canvas->img.ctr.r += (kc == RA ? canvas->frc.zoom : -canvas->frc.zoom) / 10;
 	frac_printmap(canvas, &canvas->frc.cp);
 	return (0);
 }
