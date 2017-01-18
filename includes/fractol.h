@@ -6,7 +6,7 @@
 /*   By: kdavis <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/13 13:30:23 by kdavis            #+#    #+#             */
-/*   Updated: 2017/01/15 16:22:47 by kdavis           ###   ########.fr       */
+/*   Updated: 2017/01/18 13:33:10 by kdavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,27 +45,26 @@
 # define LCLICK 1
 # define RCLICK 2
 # define MCLICK 3
-# define DWHEEL 4
-# define UWHEEL 5
+# define ZOOMOT 4
+# define ZOOMIN 5
 # define RWHEEL 6
 # define LWHEEL 7
 
 /*
 ** Program related macros
 */
-# define MAX_X		1080
-# define MAX_Y		720
+# define MAX_X		500
+# define MAX_Y		500
 # define FRACTOL1	"Julia"
 # define FRACTOL2	"Mandelbrot"
 # define FRACTOL3	"Test"
 
-typedef	struct	s_bounds
+typedef	struct	s_complex
 {
-	int			max_r;
-	int			min_r;
-	int			max_i;
-	int			min_i;
-}				t_bounds;
+	double		r;
+	double		i;
+}				t_complex;
+
 
 typedef	struct	s_color
 {
@@ -88,6 +87,7 @@ typedef struct	s_image
 	int			bpp;
 	int			sl;
 	int			end;
+	t_complex	ctr;
 }				t_img;
 
 typedef	struct	s_window
@@ -99,31 +99,67 @@ typedef	struct	s_window
 
 typedef struct	s_palette
 {
-	int			large[513];
+	int			large[257];
 	int			p[8][64];
 }				t_palette;
+
+typedef struct	s_fractal
+{
+	char		*name;
+	double		zoom;
+	t_complex	cp;
+	int			id;
+	int			res;
+	char		lock;
+}				t_fractal;
 
 typedef	struct	s_mlx
 {
 	void		*mlx;
-	char		*name;
 	t_win		win;
 	t_img		img;
 	t_palette	palette;
+	t_fractal	frc;
 }				t_mlx;
 
 /*
 ** fractol_color_palette.c
 */
+void	frac_lpalette_loader(t_palette *pal, int start, int size);
 int		frac_color_palette(t_palette *pal);
+
+/*
+** fractol_pixel.c
+*/
+int		pixel_to_img(t_mlx *c, t_pix *p);
 
 /*
 ** fractol_index.c
 */
-void	frac_dispatcher(char *name, t_mlx *c);
+void	frac_scale_c(t_mlx *cv, t_complex *c, int x, int y);
+void	frac_printmap(t_mlx *c, t_complex *cp);
+
+/*
+** fractol_zoom.c
+*/
+void	fractol_zoom(int button, t_mlx *c, int x, int y);
+
+/*
+** fractol_hooks.c
+*/
+int	fractol_khooks(int kc, void *param);
+int	fractol_mhooks(int button, int x, int y, void *param);
+int	motion_hook(int x, int y, void *param);
+int	exit_hook(void *param);
 
 /*
 ** fractol_error.c
 */
 void	frac_cleanup(int en, t_mlx *c);
+
+/*
+** Fractol functions
+*/
+int		frac_julia(t_mlx *c, t_pix *p, t_complex *cp);
+int		test_fractol(t_mlx *c, t_complex *cp);
 #endif

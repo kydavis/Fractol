@@ -6,7 +6,7 @@
 /*   By: kdavis <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 16:45:15 by kdavis            #+#    #+#             */
-/*   Updated: 2017/01/17 11:50:27 by kdavis           ###   ########.fr       */
+/*   Updated: 2017/01/18 13:35:09 by kdavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,11 @@ int	motion_hook(int x, int y, void *param)
 	t_mlx *canvas;
 
 	canvas = (t_mlx*)param;
-	if (x <= 0 || x >= canvas->win.max_x || y <= 0 || y >= canvas->win.max_y)
+	if (x <= 0 || x >= canvas->win.max_x || y <= 0 || y >= canvas->win.max_y ||
+			canvas->frc.lock)
 		return (0);
-	frac_printmap(canvas, x, y, 0);
+	frac_scale_c(canvas, &canvas->frc.cp, x, y);
+	frac_printmap(canvas, &canvas->frc.cp);
 	return (0);
 }
 
@@ -49,10 +51,15 @@ int	fractol_mhooks(int button, int x, int y, void *param)
 	canvas = (t_mlx*)param;
 	if (button == ZOOMOT || button == ZOOMIN)
 		fractol_zoom(button, canvas, x, y);
-	frac_printmap(canvas, x, y, 1);
-/*	ft_printf("x:%d, y:%d, button:%d\n",x, y, button);*/
+	if (button == RCLICK)
+		canvas->frc.lock = ~canvas->frc.lock;
+	if (!(canvas->frc.lock))
+	{
+		frac_scale_c(canvas, &canvas->frc.cp, x, y);
+	}
+	frac_printmap(canvas, &canvas->frc.cp);
+/*	ft_printf("x:%d, y:%d, button:%d\n", x, y, button);*/
 	return (0);
-	(void)button;
 }
 
 
@@ -67,6 +74,14 @@ int	fractol_khooks(int kc, void *param)
 	canvas = (t_mlx*)param;
 	if (kc == ESC)
 		frac_cleanup(0, canvas);
-	mlx_put_image_to_window(canvas->mlx, canvas->win.id, canvas->img.id, 0, 0);
+	if ((kc == PS && canvas->frc.res < 256) || (kc == MS && canvas->frc.res > 64))
+		canvas->frc.res += (kc == PS ? 64 : -64);
+	if (kc == N1 || kc == N2 || kc == N3 || kc == N4 || kc == N5)
+		frac_lpalette_loader(&canvas->palette, kc - N1, 4);
+	if (kc == UA || kc == DA)
+		canvas->img.ctr.i += (kc == DA ? canvas->frc.zoom : -canvas->frc.zoom) / 100;
+	if (kc == LA || kc == RA)
+		canvas->img.ctr.r += (kc == RA ? canvas->frc.zoom : -canvas->frc.zoom) / 100;
+	frac_printmap(canvas, &canvas->frc.cp);
 	return (0);
 }

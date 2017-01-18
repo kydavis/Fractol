@@ -6,7 +6,7 @@
 /*   By: kdavis <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/13 15:18:24 by kdavis            #+#    #+#             */
-/*   Updated: 2017/01/16 14:57:25 by kdavis           ###   ########.fr       */
+/*   Updated: 2017/01/18 12:59:25 by kdavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	frac_cleanup(int en, t_mlx *c)
 			mlx_destroy_image(c->mlx, c->img.id);
 		if (c->win.id && c->mlx)
 			mlx_destroy_window(c->mlx, c->win.id);
-		ft_memdel((void*)&c->win.name);
+		ft_memdel((void*)&c->frc.name);
 	}
 	frac_perror(en);
 	exit(en);
