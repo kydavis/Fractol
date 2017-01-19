@@ -6,12 +6,11 @@
 /*   By: kdavis <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 11:04:20 by kdavis            #+#    #+#             */
-/*   Updated: 2017/01/18 19:00:05 by kdavis           ###   ########.fr       */
+/*   Updated: 2017/01/18 19:15:24 by kdavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fractol.h>
-#include <stdio.h>
 
 void	fractol_zoom(int button, t_mlx *c, int x, int y)
 {
