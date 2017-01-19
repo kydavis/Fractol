@@ -6,7 +6,7 @@
 #    By: kdavis <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/14 18:48:35 by kdavis            #+#    #+#              #
-#    Updated: 2017/01/18 15:34:14 by kdavis           ###   ########.fr        #
+#    Updated: 2017/01/19 10:18:22 by kdavis           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,7 @@ MAKE		= make
 
 FILENAMES	= fractol_index.c fractol_error.c fractol_pixel.c fractol_zoom.c
 FILENAMES	+=fractol_color_palette.c fractol_hooks.c fractals.c
-FILENAMES	+= #test_colors.c
-FILENAMES	+= main.c #test_fract.c
+FILENAMES	+= main.c
 
 L1			= ft
 L2			= mlx
@@ -31,7 +30,7 @@ LIB1		=$(addprefix lib, $(L1))
 LIB2		=$(addprefix lib, $(L2))
 
 IFLAGS		=-I $(IDIR) -I $(LIBDIR)$(L1)/$(IDIR) -I $(LIBDIR)$(L2)/
-CFLAGS		:= -Wall -Werror -Wextra -fsanitize=address
+CFLAGS		:= -Wall -Werror -Wextra
 LFLAGS		+= -L $(LIBDIR) -l$(L1) -l$(L2) -framework OpenGL -framework AppKit
 CC			= gcc
 

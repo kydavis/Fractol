@@ -6,7 +6,7 @@
 /*   By: kdavis <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/13 13:30:23 by kdavis            #+#    #+#             */
-/*   Updated: 2017/01/18 19:05:27 by kdavis           ###   ########.fr       */
+/*   Updated: 2017/01/19 10:46:01 by kdavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,6 @@ int				exit_hook(void *param);
 int				fractol_kr_hook(int kc, void *param);
 int				fractol_mhooks(int button, int x, int y, void *param);
 int				motion_hook(int x, int y, void *param);
-int				fractol_hook(void *param);
 
 /*
 ** fractol_error.c

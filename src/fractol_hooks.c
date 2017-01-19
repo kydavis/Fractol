@@ -6,7 +6,7 @@
 /*   By: kdavis <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 16:45:15 by kdavis            #+#    #+#             */
-/*   Updated: 2017/01/18 19:03:31 by kdavis           ###   ########.fr       */
+/*   Updated: 2017/01/19 10:23:18 by kdavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ int	exit_hook(void *param)
 
 /*
 ** motion_hook notices movement in the cursor and returns the position
-** of the cursor.
+** of the cursor. Does not activate if the cursor is outside the window
+** range, if the fractal is locked, or the fractal is not a Julia variant.
 */
 
 int	motion_hook(int x, int y, void *param)
@@ -36,9 +37,10 @@ int	motion_hook(int x, int y, void *param)
 
 	canvas = (t_mlx*)param;
 	if (x <= 0 || x >= canvas->win.max_x || y <= 0 || y >= canvas->win.max_y ||
-			canvas->frc.lock)
+			canvas->frc.lock || !(canvas->frc.id % 2))
 		return (0);
 	frac_scale_c(canvas, &canvas->frc.cp, x, y);
+	frac_printmap(canvas, &canvas->frc.cp);
 	return (0);
 }
 
@@ -57,6 +59,7 @@ int	fractol_mhooks(int button, int x, int y, void *param)
 		canvas->frc.lock = ~canvas->frc.lock;
 	if (!(canvas->frc.lock))
 		frac_scale_c(canvas, &canvas->frc.cp, x, y);
+	frac_printmap(canvas, &canvas->frc.cp);
 	return (0);
 }
 
@@ -85,14 +88,6 @@ int	fractol_kr_hook(int kc, void *param)
 		can->img.ctr.r = 0;
 		can->img.ctr.i = 0;
 	}
-	return (0);
-}
-
-int	fractol_hook(void *param)
-{
-	t_mlx	*c;
-
-	c = (t_mlx*)param;
-	frac_printmap(c, &c->frc.cp);
+	frac_printmap(can, &can->frc.cp);
 	return (0);
 }

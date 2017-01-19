@@ -6,7 +6,7 @@
 /*   By: kdavis <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/13 15:39:10 by kdavis            #+#    #+#             */
-/*   Updated: 2017/01/18 18:42:16 by kdavis           ###   ########.fr       */
+/*   Updated: 2017/01/19 10:23:25 by kdavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ static void	frac_initialize(t_mlx *c, int x, int y)
 	c->frc.zoom = 4;
 	frac_identifier(c);
 	frac_scale_c(c, &c->frc.cp, c->win.max_x / 2, c->win.max_y / 2);
+	frac_printmap(c, &c->frc.cp);
 }
 
 int			main(int argc, char **argv)
@@ -77,7 +78,6 @@ int			main(int argc, char **argv)
 	mlx_mouse_hook(canvas.win.id, fractol_mhooks, (void*)&canvas);
 	mlx_hook(canvas.win.id, 6, 0, motion_hook, (void*)&canvas);
 	mlx_hook(canvas.win.id, 17, 0, exit_hook, (void*)&canvas);
-	mlx_loop_hook(canvas.mlx, fractol_hook, (void*)&canvas);
 	mlx_loop(canvas.mlx);
 	return (0);
 }
