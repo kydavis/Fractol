@@ -6,7 +6,7 @@
 /*   By: kdavis <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/13 13:30:23 by kdavis            #+#    #+#             */
-/*   Updated: 2017/01/18 18:04:10 by kdavis           ###   ########.fr       */
+/*   Updated: 2017/01/18 19:05:27 by kdavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,14 @@
 # define FRACTOL4	"Burning"
 # define FRACTOL5	"LilySet"
 # define FRACTOL6	"Lily"
+# define FRACTOL7	"WeirdSet"
+# define FRACTOL8	"Weird"
 
 typedef	struct	s_complex
 {
 	double		r;
 	double		i;
 }				t_complex;
-
 
 typedef	struct	s_color
 {
@@ -128,42 +129,44 @@ typedef	struct	s_mlx
 /*
 ** fractol_color_palette.c
 */
-void	frac_lpalette_loader(t_palette *pal, int start, int size);
-int		frac_color_palette(t_palette *pal);
+void			frac_lpalette_loader(t_palette *pal, int start, int size);
+int				frac_color_palette(t_palette *pal);
 
 /*
 ** fractol_pixel.c
 */
-int		pixel_to_img(t_mlx *c, t_pix *p);
+int				pixel_to_img(t_mlx *c, t_pix *p);
 
 /*
 ** fractol_index.c
 */
-void	frac_scale_c(t_mlx *cv, t_complex *c, int x, int y);
-void	frac_printmap(t_mlx *c, t_complex *cp);
+void			frac_scale_c(t_mlx *cv, t_complex *c, int x, int y);
+void			frac_printmap(t_mlx *c, t_complex *cp);
 
 /*
 ** fractol_zoom.c
 */
-void	fractol_zoom(int button, t_mlx *c, int x, int y);
+void			fractol_zoom(int button, t_mlx *c, int x, int y);
 
 /*
 ** fractol_hooks.c
 */
-int	fractol_khooks(int kc, void *param);
-int	fractol_mhooks(int button, int x, int y, void *param);
-int	motion_hook(int x, int y, void *param);
-int	exit_hook(void *param);
+int				exit_hook(void *param);
+int				fractol_kr_hook(int kc, void *param);
+int				fractol_mhooks(int button, int x, int y, void *param);
+int				motion_hook(int x, int y, void *param);
+int				fractol_hook(void *param);
 
 /*
 ** fractol_error.c
 */
-void	frac_cleanup(int en, t_mlx *c);
+void			frac_cleanup(int en, t_mlx *c);
 
 /*
 ** Fractol functions
 */
-int		frac_julia(t_mlx *c, t_complex *z, t_complex *cp, t_complex *zs);
-int		frac_burning(t_mlx *c, t_complex *z, t_complex *cp, t_complex *zs);
-int		frac_lily(t_mlx *c, t_complex *z, t_complex *cp, t_complex *zs);
+int				julia(t_mlx *c, t_complex *z, t_complex *cp, t_complex *zs);
+int				burning(t_mlx *c, t_complex *z, t_complex *cp, t_complex *zs);
+int				lily(t_mlx *c, t_complex *z, t_complex *cp, t_complex *zs);
+int				weird(t_mlx *c, t_complex *z, t_complex *cp, t_complex *zs);
 #endif

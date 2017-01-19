@@ -6,14 +6,13 @@
 /*   By: kdavis <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/13 15:39:10 by kdavis            #+#    #+#             */
-/*   Updated: 2017/01/18 17:41:08 by kdavis           ###   ########.fr       */
+/*   Updated: 2017/01/18 18:42:16 by kdavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 #include <fractol.h>
 #include <mlx.h>
-
 
 /*
 ** frac_identifier identifies the fractal based on the argument
@@ -33,6 +32,10 @@ static void	frac_identifier(t_mlx *c)
 		c->frc.id = 5;
 	else if (!(ft_strcmp(c->frc.name, FRACTOL6)))
 		c->frc.id = 6;
+	else if (!(ft_strcmp(c->frc.name, FRACTOL7)))
+		c->frc.id = 7;
+	else if (!(ft_strcmp(c->frc.name, FRACTOL8)))
+		c->frc.id = 8;
 	else
 		frac_cleanup(1, c);
 }
@@ -57,7 +60,6 @@ static void	frac_initialize(t_mlx *c, int x, int y)
 	c->frc.zoom = 4;
 	frac_identifier(c);
 	frac_scale_c(c, &c->frc.cp, c->win.max_x / 2, c->win.max_y / 2);
-	frac_printmap(c, &c->frc.cp);
 }
 
 int			main(int argc, char **argv)
@@ -71,10 +73,11 @@ int			main(int argc, char **argv)
 	if (!(canvas.frc.name = ft_strdup(argv[1])))
 		frac_cleanup(3, &canvas);
 	frac_initialize(&canvas, MAX_X, MAX_Y);
-	mlx_key_hook(canvas.win.id, fractol_khooks, (void*)&canvas);
+	mlx_key_hook(canvas.win.id, fractol_kr_hook, (void*)&canvas);
 	mlx_mouse_hook(canvas.win.id, fractol_mhooks, (void*)&canvas);
 	mlx_hook(canvas.win.id, 6, 0, motion_hook, (void*)&canvas);
 	mlx_hook(canvas.win.id, 17, 0, exit_hook, (void*)&canvas);
+	mlx_loop_hook(canvas.mlx, fractol_hook, (void*)&canvas);
 	mlx_loop(canvas.mlx);
 	return (0);
 }

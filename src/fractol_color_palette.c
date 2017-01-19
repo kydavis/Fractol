@@ -6,7 +6,7 @@
 /*   By: kdavis <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/13 19:56:09 by kdavis            #+#    #+#             */
-/*   Updated: 2017/01/17 11:38:56 by kdavis           ###   ########.fr       */
+/*   Updated: 2017/01/18 19:03:07 by kdavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void		frac_palette_maker(int *palette, int size,
 	t_color range[3];
 	t_color step;
 	t_color	extra;
-	int	i;
+	int		i;
 
 	i = size - 1;
 	frac_itocolor(&range[0], scolor);
@@ -70,9 +70,6 @@ void		frac_palette_maker(int *palette, int size,
 	extra.red = ((range[1].red - range[0].red) % (i * 0x010000)) / 0x010000;
 	extra.green = ((range[1].green - range[0].green) % (i * 0x100)) / 0x100;
 	extra.blue = (range[1].blue - range[0].blue) % i;
-/*	ft_printf("Steps r:%#x g:%#x b:%d\nExtra r:%#x g:%#x b:%d\n",
-			step.red, step.green, step.blue,
-			extra.red, extra.green, extra.blue);*/
 	i = ~0;
 	while (++i < size)
 	{
@@ -90,7 +87,7 @@ void		frac_palette_maker(int *palette, int size,
 ** of color palettes to be combined into the large palette.
 */
 
-void	frac_lpalette_loader(t_palette *pal, int start, int size)
+void		frac_lpalette_loader(t_palette *pal, int start, int size)
 {
 	int	duplicates;
 	int	offset;
@@ -98,7 +95,7 @@ void	frac_lpalette_loader(t_palette *pal, int start, int size)
 	int	j;
 	int	k;
 
-	duplicates = 256 / (size * 64); 
+	duplicates = 256 / (size * 64);
 	i = start - 1;
 	size += start;
 	offset = 0;
@@ -109,11 +106,7 @@ void	frac_lpalette_loader(t_palette *pal, int start, int size)
 		{
 			k = ~0;
 			while (++k < duplicates)
-			{
 				pal->large[offset++] = pal->p[i][j];
-/*			ft_printf("pal->large:%#08x index:%d\n",
-					pal->large[offset - 1], offset);*/
-			}
 		}
 	}
 }
@@ -122,7 +115,7 @@ void	frac_lpalette_loader(t_palette *pal, int start, int size)
 ** frac_color_palette is used to initialize the color gradient for fractol
 */
 
-int	frac_color_palette(t_palette *pal)
+int			frac_color_palette(t_palette *pal)
 {
 	frac_palette_maker(pal->p[0], 64, 0x0000FF, 0xFF0000);
 	frac_palette_maker(pal->p[1], 64, 0xFF0000, 0xFFFF00);
