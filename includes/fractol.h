@@ -6,7 +6,7 @@
 /*   By: kdavis <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/13 13:30:23 by kdavis            #+#    #+#             */
-/*   Updated: 2017/01/19 10:46:01 by kdavis           ###   ########.fr       */
+/*   Updated: 2017/01/19 11:19:23 by kdavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ typedef struct	s_fractal
 
 typedef	struct	s_mlx
 {
-	void		*mlx;
+	void		*id;
 	t_win		win;
 	t_img		img;
 	t_palette	palette;

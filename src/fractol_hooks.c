@@ -6,7 +6,7 @@
 /*   By: kdavis <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 16:45:15 by kdavis            #+#    #+#             */
-/*   Updated: 2017/01/19 10:23:18 by kdavis           ###   ########.fr       */
+/*   Updated: 2017/01/19 11:25:50 by kdavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,14 @@ int	exit_hook(void *param)
 
 int	motion_hook(int x, int y, void *param)
 {
-	t_mlx *canvas;
+	t_mlx *mlx;
 
-	canvas = (t_mlx*)param;
-	if (x <= 0 || x >= canvas->win.max_x || y <= 0 || y >= canvas->win.max_y ||
-			canvas->frc.lock || !(canvas->frc.id % 2))
+	mlx = (t_mlx*)param;
+	if (x <= 0 || x >= mlx->win.max_x || y <= 0 || y >= mlx->win.max_y ||
+			mlx->frc.lock || !(mlx->frc.id % 2))
 		return (0);
-	frac_scale_c(canvas, &canvas->frc.cp, x, y);
-	frac_printmap(canvas, &canvas->frc.cp);
+	frac_scale_c(mlx, &mlx->frc.cp, x, y);
+	frac_printmap(mlx, &mlx->frc.cp);
 	return (0);
 }
 
@@ -50,16 +50,16 @@ int	motion_hook(int x, int y, void *param)
 
 int	fractol_mhooks(int button, int x, int y, void *param)
 {
-	t_mlx *canvas;
+	t_mlx *mlx;
 
-	canvas = (t_mlx*)param;
+	mlx = (t_mlx*)param;
 	if (button == ZOOMOT || button == ZOOMIN)
-		fractol_zoom(button, canvas, x, y);
+		fractol_zoom(button, mlx, x, y);
 	if (button == RCLICK)
-		canvas->frc.lock = ~canvas->frc.lock;
-	if (!(canvas->frc.lock))
-		frac_scale_c(canvas, &canvas->frc.cp, x, y);
-	frac_printmap(canvas, &canvas->frc.cp);
+		mlx->frc.lock = ~mlx->frc.lock;
+	if (!(mlx->frc.lock))
+		frac_scale_c(mlx, &mlx->frc.cp, x, y);
+	frac_printmap(mlx, &mlx->frc.cp);
 	return (0);
 }
 
@@ -69,25 +69,25 @@ int	fractol_mhooks(int button, int x, int y, void *param)
 
 int	fractol_kr_hook(int kc, void *param)
 {
-	t_mlx	*can;
+	t_mlx	*mlx;
 
-	can = (t_mlx*)param;
+	mlx = (t_mlx*)param;
 	if (kc == ESC)
-		frac_cleanup(0, can);
-	if ((kc == PS && can->frc.res < 256) || (kc == MS && can->frc.res > 64))
-		can->frc.res += (kc == PS ? 64 : -64);
+		frac_cleanup(0, mlx);
+	if ((kc == PS && mlx->frc.res < 256) || (kc == MS && mlx->frc.res > 64))
+		mlx->frc.res += (kc == PS ? 64 : -64);
 	if (kc == N1 || kc == N2 || kc == N3 || kc == N4 || kc == N5)
-		frac_lpalette_loader(&can->palette, kc - N1, 4);
+		frac_lpalette_loader(&mlx->palette, kc - N1, 4);
 	if (kc == UA || kc == DA)
-		can->img.ctr.i += (kc == DA ? can->frc.zoom : -can->frc.zoom) / 10;
+		mlx->img.ctr.i += (kc == DA ? mlx->frc.zoom : -mlx->frc.zoom) / 10;
 	if (kc == LA || kc == RA)
-		can->img.ctr.r += (kc == RA ? can->frc.zoom : -can->frc.zoom) / 10;
+		mlx->img.ctr.r += (kc == RA ? mlx->frc.zoom : -mlx->frc.zoom) / 10;
 	if (kc == SPACE)
 	{
-		can->frc.zoom = 4;
-		can->img.ctr.r = 0;
-		can->img.ctr.i = 0;
+		mlx->frc.zoom = 4;
+		mlx->img.ctr.r = 0;
+		mlx->img.ctr.i = 0;
 	}
-	frac_printmap(can, &can->frc.cp);
+	frac_printmap(mlx, &mlx->frc.cp);
 	return (0);
 }

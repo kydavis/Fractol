@@ -6,7 +6,7 @@
 /*   By: kdavis <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/13 14:39:07 by kdavis            #+#    #+#             */
-/*   Updated: 2017/01/18 19:05:56 by kdavis           ###   ########.fr       */
+/*   Updated: 2017/01/19 11:27:13 by kdavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,51 +19,51 @@
 ** r,i complex counterparts.
 */
 
-void		frac_scale_c(t_mlx *c, t_complex *cp, int x, int y)
+void		frac_scale_c(t_mlx *mlx, t_complex *cp, int x, int y)
 {
-	cp->r = c->img.ctr.r +
-		((double)x / (double)c->win.max_x - 0.5) * c->frc.zoom;
-	cp->i = c->img.ctr.i +
-		((double)y / (double)c->win.max_y - 0.5) * c->frc.zoom;
+	cp->r = mlx->img.ctr.r +
+		((double)x / (double)mlx->win.max_x - 0.5) * mlx->frc.zoom;
+	cp->i = mlx->img.ctr.i +
+		((double)y / (double)mlx->win.max_y - 0.5) * mlx->frc.zoom;
 }
 
-static int	frac_dispatcher(t_mlx *c, t_pix *p, t_complex *cp)
+static int	frac_dispatcher(t_mlx *mlx, t_pix *p, t_complex *cp)
 {
 	t_complex	z;
 	t_complex	zs;
 	int			set;
 
-	set = c->frc.id % 2;
-	frac_scale_c(c, (set ? &z : cp), p->x, p->y);
+	set = mlx->frc.id % 2;
+	frac_scale_c(mlx, (set ? &z : cp), p->x, p->y);
 	z.r = (set ? z.r : 0);
 	z.i = (set ? z.i : 0);
 	zs.r = z.r * z.r;
 	zs.i = z.i * z.i;
-	if (c->frc.id == 1 || c->frc.id == 2)
-		return (julia(c, &z, cp, &zs));
-	else if (c->frc.id == 3 || c->frc.id == 4)
-		return (burning(c, &z, cp, &zs));
-	else if (c->frc.id == 5 || c->frc.id == 6)
-		return (lily(c, &z, cp, &zs));
-	else if (c->frc.id == 7 || c->frc.id == 8)
-		return (weird(c, &z, cp, &zs));
+	if (mlx->frc.id == 1 || mlx->frc.id == 2)
+		return (julia(mlx, &z, cp, &zs));
+	else if (mlx->frc.id == 3 || mlx->frc.id == 4)
+		return (burning(mlx, &z, cp, &zs));
+	else if (mlx->frc.id == 5 || mlx->frc.id == 6)
+		return (lily(mlx, &z, cp, &zs));
+	else if (mlx->frc.id == 7 || mlx->frc.id == 8)
+		return (weird(mlx, &z, cp, &zs));
 	return (0);
 }
 
-void		frac_printmap(t_mlx *c, t_complex *cp)
+void		frac_printmap(t_mlx *mlx, t_complex *cp)
 {
 	t_pix		p;
 
 	p.y = ~0;
-	while (++p.y < c->win.max_y)
+	while (++p.y < mlx->win.max_y)
 	{
 		p.x = 0;
-		while (p.x < c->win.max_x)
+		while (p.x < mlx->win.max_x)
 		{
-			p.color = c->palette.large[frac_dispatcher(c, &p, cp)];
-			pixel_to_img(c, &p);
+			p.color = mlx->palette.large[frac_dispatcher(mlx, &p, cp)];
+			pixel_to_img(mlx, &p);
 			p.x += 1;
 		}
 	}
-	mlx_put_image_to_window(c->mlx, c->win.id, c->img.id, 0, 0);
+	mlx_put_image_to_window(mlx->id, mlx->win.id, mlx->img.id, 0, 0);
 }

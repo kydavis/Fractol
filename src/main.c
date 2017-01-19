@@ -6,7 +6,7 @@
 /*   By: kdavis <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/13 15:39:10 by kdavis            #+#    #+#             */
-/*   Updated: 2017/01/19 10:23:25 by kdavis           ###   ########.fr       */
+/*   Updated: 2017/01/19 11:22:55 by kdavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,22 +45,31 @@ static void	frac_identifier(t_mlx *c)
 ** image.
 */
 
-static void	frac_initialize(t_mlx *c, int x, int y)
+static void	frac_initialize(t_mlx *mlx, int x, int y)
 {
-	c->mlx = mlx_init();
-	c->win.max_x = x;
-	c->win.max_y = y;
-	if (!(c->win.id = mlx_new_window(c->mlx, x, y, c->frc.name)))
-		frac_cleanup(2, c);
-	if (!(c->img.id = mlx_new_image(c->mlx, x, y)))
-		frac_cleanup(3, c);
-	c->img.skt = mlx_get_data_addr(c->img.id,
-			&c->img.bpp, &c->img.sl, &c->img.end);
-	c->frc.res = 64;
-	c->frc.zoom = 4;
-	frac_identifier(c);
-	frac_scale_c(c, &c->frc.cp, c->win.max_x / 2, c->win.max_y / 2);
-	frac_printmap(c, &c->frc.cp);
+	mlx->id = mlx_init();
+	mlx->win.max_x = x;
+	mlx->win.max_y = y;
+	if (!(mlx->win.id = mlx_new_window(mlx->id, x, y, mlx->frc.name)))
+		frac_cleanup(2, mlx);
+	if (!(mlx->img.id = mlx_new_image(mlx->id, x, y)))
+		frac_cleanup(3, mlx);
+	mlx->img.skt = mlx_get_data_addr(mlx->img.id,
+			&mlx->img.bpp, &mlx->img.sl, &mlx->img.end);
+	mlx->frc.res = 64;
+	mlx->frc.zoom = 4;
+	frac_identifier(mlx);
+	frac_scale_c(mlx, &mlx->frc.cp, mlx->win.max_x / 2, mlx->win.max_y / 2);
+	frac_printmap(mlx, &mlx->frc.cp);
+}
+
+static void	fractol_hooks(t_mlx *mlx)
+{
+	mlx_key_hook(mlx->win.id, fractol_kr_hook, (void*)mlx);
+	mlx_mouse_hook(mlx->win.id, fractol_mhooks, (void*)mlx);
+	mlx_hook(mlx->win.id, 6, 0, motion_hook, (void*)mlx);
+	mlx_hook(mlx->win.id, 17, 0, exit_hook, (void*)mlx);
+	mlx_loop(mlx->id);
 }
 
 int			main(int argc, char **argv)
@@ -74,10 +83,6 @@ int			main(int argc, char **argv)
 	if (!(canvas.frc.name = ft_strdup(argv[1])))
 		frac_cleanup(3, &canvas);
 	frac_initialize(&canvas, MAX_X, MAX_Y);
-	mlx_key_hook(canvas.win.id, fractol_kr_hook, (void*)&canvas);
-	mlx_mouse_hook(canvas.win.id, fractol_mhooks, (void*)&canvas);
-	mlx_hook(canvas.win.id, 6, 0, motion_hook, (void*)&canvas);
-	mlx_hook(canvas.win.id, 17, 0, exit_hook, (void*)&canvas);
-	mlx_loop(canvas.mlx);
+	fractol_hooks(&canvas);
 	return (0);
 }

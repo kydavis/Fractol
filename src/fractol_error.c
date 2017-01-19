@@ -6,7 +6,7 @@
 /*   By: kdavis <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/13 15:18:24 by kdavis            #+#    #+#             */
-/*   Updated: 2017/01/18 18:45:59 by kdavis           ###   ########.fr       */
+/*   Updated: 2017/01/19 11:23:18 by kdavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,15 @@ void	frac_perror(int en)
 		ft_printf("Could not allocate enough space\n");
 }
 
-void	frac_cleanup(int en, t_mlx *c)
+void	frac_cleanup(int en, t_mlx *mlx)
 {
-	if (c)
+	if (mlx)
 	{
-		if (c->img.id && c->mlx)
-			mlx_destroy_image(c->mlx, c->img.id);
-		if (c->win.id && c->mlx)
-			mlx_destroy_window(c->mlx, c->win.id);
-		ft_memdel((void*)&c->frc.name);
+		if (mlx->img.id && mlx->id)
+			mlx_destroy_image(mlx->id, mlx->img.id);
+		if (mlx->win.id && mlx->id)
+			mlx_destroy_window(mlx->id, mlx->win.id);
+		ft_memdel((void*)&mlx->frc.name);
 	}
 	frac_perror(en);
 	exit(en);

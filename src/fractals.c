@@ -6,7 +6,7 @@
 /*   By: kdavis <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 16:37:35 by kdavis            #+#    #+#             */
-/*   Updated: 2017/01/18 19:05:44 by kdavis           ###   ########.fr       */
+/*   Updated: 2017/01/19 11:26:46 by kdavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@
 ** the formula for the Julia set in different ways.
 */
 
-int	julia(t_mlx *c, t_complex *z, t_complex *cp, t_complex *zs)
+int	julia(t_mlx *mlx, t_complex *z, t_complex *cp, t_complex *zs)
 {
-	int			i;
+	int	i;
 
 	i = 0;
-	while (zs->r + zs->i < 4 && i < c->frc.res)
+	while (zs->r + zs->i < 4 && i < mlx->frc.res)
 	{
 		z->i = z->r * z->i;
 		z->i += z->i;
@@ -34,15 +34,15 @@ int	julia(t_mlx *c, t_complex *z, t_complex *cp, t_complex *zs)
 		zs->i = z->i * z->i;
 		i++;
 	}
-	return (i == c->frc.res ? 256 : i);
+	return (i == mlx->frc.res ? 256 : i);
 }
 
-int	burning(t_mlx *c, t_complex *z, t_complex *cp, t_complex *zs)
+int	burning(t_mlx *mlx, t_complex *z, t_complex *cp, t_complex *zs)
 {
-	int			i;
+	int	i;
 
 	i = 0;
-	while (zs->r + zs->i < 10 && i < c->frc.res)
+	while (zs->r + zs->i < 10 && i < mlx->frc.res)
 	{
 		z->i = fabs(z->r * z->i);
 		z->i += z->i;
@@ -52,15 +52,15 @@ int	burning(t_mlx *c, t_complex *z, t_complex *cp, t_complex *zs)
 		zs->i = z->i * z->i;
 		i++;
 	}
-	return (i == c->frc.res ? 256 : i);
+	return (i == mlx->frc.res ? 256 : i);
 }
 
-int	lily(t_mlx *c, t_complex *z, t_complex *cp, t_complex *zs)
+int	lily(t_mlx *mlx, t_complex *z, t_complex *cp, t_complex *zs)
 {
-	int			i;
+	int	i;
 
 	i = 0;
-	while (zs->r + zs->i < 10 && i < c->frc.res)
+	while (zs->r + zs->i < 10 && i < mlx->frc.res)
 	{
 		z->i = z->r * z->i;
 		z->i += z->i;
@@ -70,15 +70,15 @@ int	lily(t_mlx *c, t_complex *z, t_complex *cp, t_complex *zs)
 		zs->i = z->i * z->i;
 		i++;
 	}
-	return (i == c->frc.res ? 256 : i);
+	return (i == mlx->frc.res ? 256 : i);
 }
 
-int	weird(t_mlx *c, t_complex *z, t_complex *cp, t_complex *zs)
+int	weird(t_mlx *mlx, t_complex *z, t_complex *cp, t_complex *zs)
 {
-	int			i;
+	int	i;
 
 	i = 0;
-	while (zs->r + zs->i < 10 && i < c->frc.res)
+	while (zs->r + zs->i < 10 && i < mlx->frc.res)
 	{
 		z->r = zs->r - zs->i + cp->r;
 		z->i = z->r * z->i;
@@ -88,5 +88,5 @@ int	weird(t_mlx *c, t_complex *z, t_complex *cp, t_complex *zs)
 		zs->i = z->i * z->i;
 		i++;
 	}
-	return (i == c->frc.res ? 256 : i);
+	return (i == mlx->frc.res ? 256 : i);
 }
