@@ -6,7 +6,7 @@
 /*   By: kdavis <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 16:45:15 by kdavis            #+#    #+#             */
-/*   Updated: 2017/01/18 15:58:29 by kdavis           ###   ########.fr       */
+/*   Updated: 2017/01/18 16:40:10 by kdavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	motion_hook(int x, int y, void *param)
 
 	canvas = (t_mlx*)param;
 	if (x <= 0 || x >= canvas->win.max_x || y <= 0 || y >= canvas->win.max_y ||
-			canvas->frc.lock || canvas->frc.id != 1)
+			canvas->frc.lock)
 		return (0);
 	frac_scale_c(canvas, &canvas->frc.cp, x, y);
 	frac_printmap(canvas, &canvas->frc.cp);
@@ -52,7 +52,10 @@ int	fractol_mhooks(int button, int x, int y, void *param)
 	if (button == ZOOMOT || button == ZOOMIN)
 		fractol_zoom(button, canvas, x, y);
 	if (button == RCLICK)
+	{
+		printf("cp->r:%lf, cp->i:%lf\n", canvas->frc.cp.r,canvas->frc.cp.i);
 		canvas->frc.lock = ~canvas->frc.lock;
+	}
 	if (!(canvas->frc.lock))
 	{
 		frac_scale_c(canvas, &canvas->frc.cp, x, y);

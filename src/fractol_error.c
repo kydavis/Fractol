@@ -6,7 +6,7 @@
 /*   By: kdavis <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/13 15:18:24 by kdavis            #+#    #+#             */
-/*   Updated: 2017/01/18 12:59:25 by kdavis           ###   ########.fr       */
+/*   Updated: 2017/01/18 17:50:01 by kdavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	frac_perror(int en)
 	if (en == 1)
 	{
 		ft_printf("Usage: ./fractol [valid fractol]\n");
-		ft_printf("List of valid fractols:\n%s\n%s\n%s\n",
-				FRACTOL1, FRACTOL2, FRACTOL3);
+		ft_printf("List of valid fractols:\n%s\n%s\n%s\n%s\n%s\n%s",
+				FRACTOL1, FRACTOL2, FRACTOL3, FRACTOL4, FRACTOL5, FRACTOL6);
 	}
 	else if (en == 2)
 		ft_printf("Failed to create window\n");

@@ -6,7 +6,7 @@
 /*   By: kdavis <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/13 15:39:10 by kdavis            #+#    #+#             */
-/*   Updated: 2017/01/18 15:16:36 by kdavis           ###   ########.fr       */
+/*   Updated: 2017/01/18 17:41:08 by kdavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,28 @@
 #include <fractol.h>
 #include <mlx.h>
 
+
+/*
+** frac_identifier identifies the fractal based on the argument
+*/
+
+static void	frac_identifier(t_mlx *c)
+{
+	if (!(ft_strcmp(c->frc.name, FRACTOL1)))
+		c->frc.id = 1;
+	else if (!(ft_strcmp(c->frc.name, FRACTOL2)))
+		c->frc.id = 2;
+	else if (!(ft_strcmp(c->frc.name, FRACTOL3)))
+		c->frc.id = 3;
+	else if (!(ft_strcmp(c->frc.name, FRACTOL4)))
+		c->frc.id = 4;
+	else if (!(ft_strcmp(c->frc.name, FRACTOL5)))
+		c->frc.id = 5;
+	else if (!(ft_strcmp(c->frc.name, FRACTOL6)))
+		c->frc.id = 6;
+	else
+		frac_cleanup(1, c);
+}
 
 /*
 ** frac_initialize is used to initialize the mlx server, the window, and the
@@ -33,14 +55,7 @@ static void	frac_initialize(t_mlx *c, int x, int y)
 			&c->img.bpp, &c->img.sl, &c->img.end);
 	c->frc.res = 64;
 	c->frc.zoom = 4;
-	if (!(ft_strcmp(c->frc.name, FRACTOL1)))
-		c->frc.id = 1;
-	else if (!(ft_strcmp(c->frc.name, FRACTOL2)))
-		c->frc.id = 2;
-	else if (!(ft_strcmp(c->frc.name, FRACTOL3)))
-		c->frc.id = 3;
-	else
-		frac_cleanup(1, c);
+	frac_identifier(c);
 	frac_scale_c(c, &c->frc.cp, c->win.max_x / 2, c->win.max_y / 2);
 	frac_printmap(c, &c->frc.cp);
 }

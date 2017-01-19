@@ -6,7 +6,7 @@
 /*   By: kdavis <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/13 14:39:07 by kdavis            #+#    #+#             */
-/*   Updated: 2017/01/18 15:33:24 by kdavis           ###   ########.fr       */
+/*   Updated: 2017/01/18 18:08:37 by kdavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,24 +22,28 @@
 
 void	frac_scale_c(t_mlx *c, t_complex *cp, int x, int y)
 {
-/*	t_complex	db;
-
-	db.r = cv->border.max_r - cv->border.min_r;
-	db.i = cv->border.max_i - cv->border.min_i;*/
-/*	c->r = (db.r / (double)cv->win.max_x) * x + cv->border.min_r;
-	c->i = -1 * ((db.i / (double)cv->win.max_y) * y + cv->border.min_i);*/
 	cp->r = c->img.ctr.r + ((double)x / (double)c->win.max_x - 0.5) * c->frc.zoom;
 	cp->i = c->img.ctr.i + ((double)y / (double)c->win.max_y - 0.5) * c->frc.zoom;
 }
 
 static int	frac_dispatcher(t_mlx *c, t_pix *p, t_complex *cp)
 {
-	if (c->frc.id == 1)
-		return (frac_julia(c, p, cp, 1)); 
-	else if (c->frc.id == 2)
-		return (frac_julia(c, p, cp, 0)); 
-/*	else if (c->frc.id == 3)
-		return (test_fractol(c, cp));*/
+	t_complex	z;
+	t_complex	zs;
+	int			set;
+
+	set = c->frc.id % 2;
+	frac_scale_c(c, (set ? &z : cp), p->x, p->y);
+	z.r = (set ? z.r : 0);
+	z.i = (set ? z.i : 0);
+	zs.r = z.r * z.r;
+	zs.i = z.i * z.i;
+	if (c->frc.id == 1 || c->frc.id == 2)
+		return (frac_julia(c, &z, cp, &zs)); 
+	else if (c->frc.id == 3 || c->frc.id == 4)
+		return (frac_burning(c, &z, cp, &zs)); 
+	else if (c->frc.id == 5 || c->frc.id == 6)
+		return (frac_lily(c, &z, cp, &zs)); 
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: kdavis <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/13 13:30:23 by kdavis            #+#    #+#             */
-/*   Updated: 2017/01/18 15:33:44 by kdavis           ###   ########.fr       */
+/*   Updated: 2017/01/18 18:04:10 by kdavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,10 @@
 # define MAX_Y		500
 # define FRACTOL1	"Julia"
 # define FRACTOL2	"Mandelbrot"
-# define FRACTOL3	"Test"
+# define FRACTOL3	"BurningSet"
+# define FRACTOL4	"Burning"
+# define FRACTOL5	"LilySet"
+# define FRACTOL6	"Lily"
 
 typedef	struct	s_complex
 {
@@ -160,6 +163,7 @@ void	frac_cleanup(int en, t_mlx *c);
 /*
 ** Fractol functions
 */
-int		frac_julia(t_mlx *c, t_pix *p, t_complex *cp, int frac);
-int		test_fractol(t_mlx *c, t_complex *cp);
+int		frac_julia(t_mlx *c, t_complex *z, t_complex *cp, t_complex *zs);
+int		frac_burning(t_mlx *c, t_complex *z, t_complex *cp, t_complex *zs);
+int		frac_lily(t_mlx *c, t_complex *z, t_complex *cp, t_complex *zs);
 #endif
