@@ -6,7 +6,7 @@
 /*   By: kdavis <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/13 14:39:07 by kdavis            #+#    #+#             */
-/*   Updated: 2017/01/18 15:17:49 by kdavis           ###   ########.fr       */
+/*   Updated: 2017/01/18 15:33:24 by kdavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ void	frac_scale_c(t_mlx *c, t_complex *cp, int x, int y)
 static int	frac_dispatcher(t_mlx *c, t_pix *p, t_complex *cp)
 {
 	if (c->frc.id == 1)
-		return (frac_julia(c, p, cp)); 
-/*	else if (c->frc.id == 2)
-		frac_mandelbrot(c); */
+		return (frac_julia(c, p, cp, 1)); 
+	else if (c->frc.id == 2)
+		return (frac_julia(c, p, cp, 0)); 
 /*	else if (c->frc.id == 3)
 		return (test_fractol(c, cp));*/
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: kdavis <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 16:45:15 by kdavis            #+#    #+#             */
-/*   Updated: 2017/01/18 15:21:44 by kdavis           ###   ########.fr       */
+/*   Updated: 2017/01/18 15:58:29 by kdavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	motion_hook(int x, int y, void *param)
 
 	canvas = (t_mlx*)param;
 	if (x <= 0 || x >= canvas->win.max_x || y <= 0 || y >= canvas->win.max_y ||
-			canvas->frc.lock)
+			canvas->frc.lock || canvas->frc.id != 1)
 		return (0);
 	frac_scale_c(canvas, &canvas->frc.cp, x, y);
 	frac_printmap(canvas, &canvas->frc.cp);

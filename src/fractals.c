@@ -6,20 +6,22 @@
 /*   By: kdavis <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 16:37:35 by kdavis            #+#    #+#             */
-/*   Updated: 2017/01/18 12:57:33 by kdavis           ###   ########.fr       */
+/*   Updated: 2017/01/18 16:00:13 by kdavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 #include <fractol.h>
 
-int	frac_julia(t_mlx *c, t_pix *p, t_complex *cp)
+int	frac_julia(t_mlx *c, t_pix *p, t_complex *cp, int frac)
 {
 	t_complex	z;
 	t_complex	zs;
 	int			i;
 
-	frac_scale_c(c, &z, p->x, p->y);
+	frac_scale_c(c, (frac ? &z : cp), p->x, p->y);
+	z.r = (frac ? z.r : 0);
+	z.i = (frac ? z.i : 0);
 	zs.r = z.r * z.r;
 	zs.i = z.i * z.i;
 	i = 0;
