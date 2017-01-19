@@ -6,7 +6,7 @@
 /*   By: kdavis <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/13 13:30:23 by kdavis            #+#    #+#             */
-/*   Updated: 2017/01/19 11:19:23 by kdavis           ###   ########.fr       */
+/*   Updated: 2017/01/19 11:48:32 by kdavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ typedef struct	s_palette
 {
 	int			large[257];
 	int			p[8][64];
+	int			trippy[9];
 }				t_palette;
 
 typedef struct	s_fractal
@@ -114,6 +115,7 @@ typedef struct	s_fractal
 	t_complex	cp;
 	int			id;
 	int			res;
+	char		trip;
 	char		lock;
 }				t_fractal;
 

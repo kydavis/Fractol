@@ -6,7 +6,7 @@
 /*   By: kdavis <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/13 19:56:09 by kdavis            #+#    #+#             */
-/*   Updated: 2017/01/18 19:03:07 by kdavis           ###   ########.fr       */
+/*   Updated: 2017/01/19 11:43:55 by kdavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,14 @@ int			frac_color_palette(t_palette *pal)
 	frac_palette_maker(pal->p[5], 64, 0x800080, 0xFF8000);
 	frac_palette_maker(pal->p[6], 64, 0xFF8000, 0xFF00FF);
 	frac_palette_maker(pal->p[7], 64, 0xFF00FF, 0x000000);
+	pal->trippy[0] = 0xFF0000;
+	pal->trippy[1] = 0xFF8000;
+	pal->trippy[2] = 0xFFFF00;
+	pal->trippy[3] = 0x00FF00;
+	pal->trippy[4] = 0x00FFFF;
+	pal->trippy[5] = 0x0000FF;
+	pal->trippy[6] = 0x8000FF;
+	pal->trippy[7] = 0xFF00FF;
 	frac_lpalette_loader(pal, 0, 4);
 	return (0);
 }

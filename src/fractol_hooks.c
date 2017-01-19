@@ -6,7 +6,7 @@
 /*   By: kdavis <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 16:45:15 by kdavis            #+#    #+#             */
-/*   Updated: 2017/01/19 11:25:50 by kdavis           ###   ########.fr       */
+/*   Updated: 2017/01/19 11:50:51 by kdavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ int	fractol_kr_hook(int kc, void *param)
 		mlx->img.ctr.i += (kc == DA ? mlx->frc.zoom : -mlx->frc.zoom) / 10;
 	if (kc == LA || kc == RA)
 		mlx->img.ctr.r += (kc == RA ? mlx->frc.zoom : -mlx->frc.zoom) / 10;
+	if (kc == RSHIFT)
+		mlx->frc.trip = ~mlx->frc.trip;
 	if (kc == SPACE)
 	{
 		mlx->frc.zoom = 4;

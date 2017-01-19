@@ -6,7 +6,7 @@
 /*   By: kdavis <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/13 14:39:07 by kdavis            #+#    #+#             */
-/*   Updated: 2017/01/19 11:27:13 by kdavis           ###   ########.fr       */
+/*   Updated: 2017/01/19 11:53:16 by kdavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ static int	frac_dispatcher(t_mlx *mlx, t_pix *p, t_complex *cp)
 void		frac_printmap(t_mlx *mlx, t_complex *cp)
 {
 	t_pix		p;
+	int			color_index;
 
 	p.y = ~0;
 	while (++p.y < mlx->win.max_y)
@@ -60,7 +61,14 @@ void		frac_printmap(t_mlx *mlx, t_complex *cp)
 		p.x = 0;
 		while (p.x < mlx->win.max_x)
 		{
-			p.color = mlx->palette.large[frac_dispatcher(mlx, &p, cp)];
+			color_index = frac_dispatcher(mlx, &p, cp);
+			if (mlx->frc.trip)
+			{
+				color_index = color_index % 8;
+				p.color = mlx->palette.trippy[color_index];
+			}
+			else
+				p.color = mlx->palette.large[color_index];
 			pixel_to_img(mlx, &p);
 			p.x += 1;
 		}
