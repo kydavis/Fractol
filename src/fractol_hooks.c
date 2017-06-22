@@ -6,7 +6,7 @@
 /*   By: kdavis <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 16:45:15 by kdavis            #+#    #+#             */
-/*   Updated: 2017/01/19 11:50:51 by kdavis           ###   ########.fr       */
+/*   Updated: 2017/01/19 13:48:47 by kdavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	motion_hook(int x, int y, void *param)
 			mlx->frc.lock || !(mlx->frc.id % 2))
 		return (0);
 	frac_scale_c(mlx, &mlx->frc.cp, x, y);
-	frac_printmap(mlx, &mlx->frc.cp);
+	frac_printmap(mlx);
 	return (0);
 }
 
@@ -59,7 +59,7 @@ int	fractol_mhooks(int button, int x, int y, void *param)
 		mlx->frc.lock = ~mlx->frc.lock;
 	if (!(mlx->frc.lock))
 		frac_scale_c(mlx, &mlx->frc.cp, x, y);
-	frac_printmap(mlx, &mlx->frc.cp);
+	frac_printmap(mlx);
 	return (0);
 }
 
@@ -90,6 +90,6 @@ int	fractol_kr_hook(int kc, void *param)
 		mlx->img.ctr.r = 0;
 		mlx->img.ctr.i = 0;
 	}
-	frac_printmap(mlx, &mlx->frc.cp);
+	frac_printmap(mlx);
 	return (0);
 }

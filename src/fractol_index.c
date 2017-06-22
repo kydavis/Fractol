@@ -6,7 +6,7 @@
 /*   By: kdavis <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/13 14:39:07 by kdavis            #+#    #+#             */
-/*   Updated: 2017/01/19 11:53:16 by kdavis           ###   ########.fr       */
+/*   Updated: 2017/01/19 14:39:10 by kdavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	frac_dispatcher(t_mlx *mlx, t_pix *p, t_complex *cp)
 	return (0);
 }
 
-void		frac_printmap(t_mlx *mlx, t_complex *cp)
+void		frac_printmap(t_mlx *mlx)
 {
 	t_pix		p;
 	int			color_index;
@@ -61,7 +61,7 @@ void		frac_printmap(t_mlx *mlx, t_complex *cp)
 		p.x = 0;
 		while (p.x < mlx->win.max_x)
 		{
-			color_index = frac_dispatcher(mlx, &p, cp);
+			color_index = frac_dispatcher(mlx, &p, &mlx->frc.cp);
 			if (mlx->frc.trip)
 			{
 				color_index = color_index % 8;

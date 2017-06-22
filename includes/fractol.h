@@ -6,7 +6,7 @@
 /*   By: kdavis <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/13 13:30:23 by kdavis            #+#    #+#             */
-/*   Updated: 2017/01/19 11:48:32 by kdavis           ###   ########.fr       */
+/*   Updated: 2017/06/14 10:48:22 by kdavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@
 /*
 ** Program related macros
 */
-# define MAX_X		500
-# define MAX_Y		500
+# define MAX_X		720
+# define MAX_Y		1080
 # define FRACTOL1	"Julia"
 # define FRACTOL2	"Mandelbrot"
 # define FRACTOL3	"BurningSet"
@@ -137,13 +137,13 @@ int				frac_color_palette(t_palette *pal);
 /*
 ** fractol_pixel.c
 */
-int				pixel_to_img(t_mlx *c, t_pix *p);
+int				pixel_to_img(t_mlx *mlx, t_pix *p);
 
 /*
 ** fractol_index.c
 */
-void			frac_scale_c(t_mlx *cv, t_complex *c, int x, int y);
-void			frac_printmap(t_mlx *c, t_complex *cp);
+void			frac_scale_c(t_mlx *mlx, t_complex *c, int x, int y);
+void			frac_printmap(t_mlx *mlx);
 
 /*
 ** fractol_zoom.c
@@ -166,8 +166,8 @@ void			frac_cleanup(int en, t_mlx *c);
 /*
 ** Fractol functions
 */
-int				julia(t_mlx *c, t_complex *z, t_complex *cp, t_complex *zs);
-int				burning(t_mlx *c, t_complex *z, t_complex *cp, t_complex *zs);
-int				lily(t_mlx *c, t_complex *z, t_complex *cp, t_complex *zs);
-int				weird(t_mlx *c, t_complex *z, t_complex *cp, t_complex *zs);
+int				julia(t_mlx *mlx, t_complex *z, t_complex *c, t_complex *zs);
+int				burning(t_mlx *mlx, t_complex *z, t_complex *c, t_complex *zs);
+int				lily(t_mlx *mlx, t_complex *z, t_complex *c, t_complex *zs);
+int				weird(t_mlx *mlx, t_complex *z, t_complex *c, t_complex *zs);
 #endif

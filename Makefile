@@ -6,7 +6,7 @@
 #    By: kdavis <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/14 18:48:35 by kdavis            #+#    #+#              #
-#    Updated: 2017/01/19 10:18:22 by kdavis           ###   ########.fr        #
+#    Updated: 2017/06/22 10:58:22 by kdavis           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,15 +30,16 @@ LIB1		=$(addprefix lib, $(L1))
 LIB2		=$(addprefix lib, $(L2))
 
 IFLAGS		=-I $(IDIR) -I $(LIBDIR)$(L1)/$(IDIR) -I $(LIBDIR)$(L2)/
-CFLAGS		:= -Wall -Werror -Wextra
-LFLAGS		+= -L $(LIBDIR) -l$(L1) -l$(L2) -framework OpenGL -framework AppKit
+CFLAGS		:= -Wall -Werror -Wextra #-g
+LFLAGS		+= -L $(LIBDIR) -l$(L1) -l$(L2) -lpthread\
+			   -framework OpenGL -framework AppKit
 CC			= gcc
 
 .PHONY: all clean fclean re
 
 all: $(NAME)
 
-$(NAME): | $(LIBDIR)$(LIB1).a $(LIBDIR)$(LIB2).a
+$(NAME): $(LIBDIR)$(LIB1).a $(LIBDIR)$(LIB2).a $(SRC)
 	$(CC) $(CFLAGS) $(IFLAGS) $(LFLAGS) $(SRC) -o $@
 
 $(LIBDIR)$(LIB1).a:
