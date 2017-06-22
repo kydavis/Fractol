@@ -6,12 +6,18 @@
 /*   By: kdavis <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/13 13:30:23 by kdavis            #+#    #+#             */
-/*   Updated: 2017/06/14 10:48:22 by kdavis           ###   ########.fr       */
+/*   Updated: 2017/06/22 12:02:10 by kdavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
+
+# include <libft.h>
+# include <mlx.h>
+# include <stdlib.h>
+# include <fcntl.h>
+# include <unistd.h>
 
 /*
 ** Keycode related macros
@@ -23,6 +29,7 @@
 # define S  1
 # define D  2
 # define A  0
+# define P	35
 # define LA 123
 # define RA 124
 # define UA 126
@@ -53,8 +60,8 @@
 /*
 ** Program related macros
 */
-# define MAX_X		720
-# define MAX_Y		1080
+# define MAX_X		500
+# define MAX_Y		500
 # define FRACTOL1	"Julia"
 # define FRACTOL2	"Mandelbrot"
 # define FRACTOL3	"BurningSet"
@@ -122,6 +129,7 @@ typedef struct	s_fractal
 typedef	struct	s_mlx
 {
 	void		*id;
+	int			*map;
 	t_win		win;
 	t_img		img;
 	t_palette	palette;
@@ -170,4 +178,11 @@ int				julia(t_mlx *mlx, t_complex *z, t_complex *c, t_complex *zs);
 int				burning(t_mlx *mlx, t_complex *z, t_complex *c, t_complex *zs);
 int				lily(t_mlx *mlx, t_complex *z, t_complex *c, t_complex *zs);
 int				weird(t_mlx *mlx, t_complex *z, t_complex *c, t_complex *zs);
+
+
+/*
+** fractol_to_file.c
+*/
+void 			fractol_to_file(t_mlx *mlx);
+
 #endif

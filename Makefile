@@ -6,7 +6,7 @@
 #    By: kdavis <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/14 18:48:35 by kdavis            #+#    #+#              #
-#    Updated: 2017/06/22 10:58:22 by kdavis           ###   ########.fr        #
+#    Updated: 2017/06/22 11:42:11 by kdavis           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ MAKE		= make
 
 FILENAMES	= fractol_index.c fractol_error.c fractol_pixel.c fractol_zoom.c
 FILENAMES	+=fractol_color_palette.c fractol_hooks.c fractals.c
-FILENAMES	+= main.c
+FILENAMES	+= main.c fractol_to_file.c
 
 L1			= ft
 L2			= mlx

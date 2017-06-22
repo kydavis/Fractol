@@ -6,13 +6,11 @@
 /*   By: kdavis <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/13 14:39:07 by kdavis            #+#    #+#             */
-/*   Updated: 2017/01/19 14:39:10 by kdavis           ###   ########.fr       */
+/*   Updated: 2017/06/22 11:37:34 by kdavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
 #include <fractol.h>
-#include <mlx.h>
 
 /*
 ** frac_scale_c converts the x,y coordinates to their scaled
@@ -53,15 +51,18 @@ static int	frac_dispatcher(t_mlx *mlx, t_pix *p, t_complex *cp)
 void		frac_printmap(t_mlx *mlx)
 {
 	t_pix		p;
+	int			i;
 	int			color_index;
 
 	p.y = ~0;
+	i = 0;
 	while (++p.y < mlx->win.max_y)
 	{
-		p.x = 0;
-		while (p.x < mlx->win.max_x)
+		p.x = ~0;
+		while (++p.x < mlx->win.max_x)
 		{
-			color_index = frac_dispatcher(mlx, &p, &mlx->frc.cp);
+			mlx->map[i] = frac_dispatcher(mlx, &p, &mlx->frc.cp);
+			color_index = mlx->map[i];
 			if (mlx->frc.trip)
 			{
 				color_index = color_index % 8;
@@ -70,7 +71,7 @@ void		frac_printmap(t_mlx *mlx)
 			else
 				p.color = mlx->palette.large[color_index];
 			pixel_to_img(mlx, &p);
-			p.x += 1;
+			i++;
 		}
 	}
 	mlx_put_image_to_window(mlx->id, mlx->win.id, mlx->img.id, 0, 0);

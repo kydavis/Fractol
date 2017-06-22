@@ -6,7 +6,7 @@
 /*   By: kdavis <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/13 15:18:24 by kdavis            #+#    #+#             */
-/*   Updated: 2017/06/22 12:08:18 by kdavis           ###   ########.fr       */
+/*   Updated: 2017/06/22 12:12:44 by kdavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	frac_perror(int en)
 	else if (en == 3)
 		ft_dprintf(2, "Could not allocate enough space\n");
 	else if (en == 4)
-		ft_dprintf(2, "Could not open file\n");
+		ft_dprintf(2, "Error creating fdf map file\n");
 }
 
 void	frac_cleanup(int en, t_mlx *mlx)

@@ -6,14 +6,11 @@
 /*   By: kdavis <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 16:45:15 by kdavis            #+#    #+#             */
-/*   Updated: 2017/01/19 13:48:47 by kdavis           ###   ########.fr       */
+/*   Updated: 2017/06/22 11:40:51 by kdavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
 #include <fractol.h>
-#include <mlx.h>
-#include <stdlib.h>
 
 /*
 ** exit_hook exits out of the progam using the cleanup function
@@ -84,6 +81,8 @@ int	fractol_kr_hook(int kc, void *param)
 		mlx->img.ctr.r += (kc == RA ? mlx->frc.zoom : -mlx->frc.zoom) / 10;
 	if (kc == RSHIFT)
 		mlx->frc.trip = ~mlx->frc.trip;
+	if (kc == P)
+		fractol_to_file(mlx);
 	if (kc == SPACE)
 	{
 		mlx->frc.zoom = 4;

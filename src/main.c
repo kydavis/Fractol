@@ -6,13 +6,11 @@
 /*   By: kdavis <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/13 15:39:10 by kdavis            #+#    #+#             */
-/*   Updated: 2017/01/20 10:16:43 by kdavis           ###   ########.fr       */
+/*   Updated: 2017/06/22 12:01:21 by kdavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
 #include <fractol.h>
-#include <mlx.h>
 
 /*
 ** frac_identifier identifies the fractal based on the argument
@@ -50,6 +48,8 @@ static void	frac_initialize(t_mlx *mlx, int x, int y)
 	mlx->id = mlx_init();
 	mlx->win.max_x = x;
 	mlx->win.max_y = y;
+	if (!(mlx->map = ft_memalloc(x * y * sizeof(int))))
+		frac_cleanup(3, mlx);
 	if (!(mlx->win.id = mlx_new_window(mlx->id, x, y, mlx->frc.name)))
 		frac_cleanup(2, mlx);
 	if (!(mlx->img.id = mlx_new_image(mlx->id, x, y)))
@@ -76,7 +76,7 @@ int			main(int argc, char **argv)
 {
 	t_mlx	canvas;
 
-	if (argc != 2)
+	if (argc < 2)
 		frac_cleanup(1, NULL);
 	ft_bzero((void*)&canvas, sizeof(canvas));
 	frac_color_palette(&canvas.palette);
